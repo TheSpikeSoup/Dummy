@@ -8,7 +8,7 @@ const path = require('node:path');
 const Booru = require('booru')
 const { BooruError, sites } = require('booru')
 
-
+//ol
 
 const client = new Client({
 	intents: [
