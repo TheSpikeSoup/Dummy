@@ -15,7 +15,7 @@ const config = require("../config.json");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("spotify")
+  .setName("spotify")
     .setDescription("en desarrollo :nerd: :point_up:")
     .addSubcommand((subcommand) =>
       subcommand
@@ -86,7 +86,7 @@ module.exports = {
           .setEmoji("1066434175097384960")
           .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
-          .setCustomId(`foward-${idn}`)
+        .setCustomId(`foward-${idn}`)
           .setEmoji("1066434177601392760")
           .setStyle(ButtonStyle.Primary)
       );
@@ -103,11 +103,11 @@ module.exports = {
       );
       const row3 = new ActionRowBuilder().addComponents(
         new ButtonBuilder()
-          .setCustomId(`primary-${idn}`)
-          .setEmoji("1066434175097384960")
+        .setCustomId(`primary-${idn}`)
+        .setEmoji("1066434175097384960")
           .setStyle(ButtonStyle.Primary)
           .setDisabled(true),
-        new ButtonBuilder()
+          new ButtonBuilder()
           .setCustomId(`foward-${idn}`)
           .setEmoji("1066434177601392760")
           .setStyle(ButtonStyle.Primary)
@@ -115,9 +115,9 @@ module.exports = {
       );
       let num = 0;
       function Embek(song, data) {
-        let embedk = new EmbedBuilder()
-          .setColor("#FFFF00")
-          .setAuthor({
+        let prettyMilliseconds = require('pretty-ms');
+        let embedk = new EmbedBuilder().setColor("#FFFF00")
+        .setAuthor({
             name: `${interaction.user.tag}`,
             iconURL: interaction.user.displayAvatarURL(),
             url: `https://discord.com/users/${interaction.user.id}`,
@@ -140,11 +140,7 @@ module.exports = {
             },
             {
               name: "Duración:",
-              value: shortEnglishHumanizer(song.duration_ms, {
-                conjunction: ":",
-                maxDecimalPoints: 0,
-                units: ["m", "s"],
-              }),
+              value: `${prettyMilliseconds(song.duration_ms, {colonNotation: true})}`,
               inline: true,
             }
             // { name: '\u200B', value: '\u200B' },
@@ -176,10 +172,7 @@ module.exports = {
           return a;
         };
         var song = await printAddress();
-        await interaction.editReply({
-          embeds: [Embek(song, data)],
-          components: [rew],
-        });
+        await interaction.editReply({ embeds: [Embek(song, data)], components: [rew] });
         let filter = (i) => i.user.id === interaction.user.id;
         let collector = interaction.channel.createMessageComponentCollector({
           filter,
